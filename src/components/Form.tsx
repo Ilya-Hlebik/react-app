@@ -1,33 +1,27 @@
-import {FormEvent, useRef} from "react";
+import {FormEvent, useState} from "react";
 
 interface Props {
 
 }
 
 const Form = ({}: Props) => {
-    let nameRef = useRef<HTMLInputElement>(null);
-    let ageRef = useRef<HTMLInputElement>(null);
-    const person = {name: '', age: 0}
+    const [person, setPerson] = useState({name: '', age: ''});
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        if (nameRef.current) {
-            person.name = nameRef.current.value;
-
-        }
-        if (ageRef.current) {
-            person.age = parseInt(ageRef.current.value);
-        }
         console.log(person);
     };
     return (
         <form onSubmit={handleSubmit}>
             <div className={'mb-3'}>
                 <label htmlFor={"name"} className={'form-label'}>Name</label>
-                <input ref={nameRef} id="name" type={'text'} className={'form-control'}/>
+                <input id="name" value={person.name} onChange={(event) => setPerson({...person, name: event.target.value})}  type={'text'}
+                       className={'form-control'}/>
             </div>
             <div className={'mb-3'}>
                 <label htmlFor={"age"} className={'form-label'}>Age</label>
-                <input ref={ageRef} id="age" type={'number'} className={'form-control'}/>
+                <input id="age" value={person.age} onChange={(event) => setPerson({...person, age: event.target.value})}
+                       type={'number'}
+                           className={'form-control'}/>
             </div>
             <button className={'btn btn-primary'} type={'submit'}>Submit</button>
         </form>
