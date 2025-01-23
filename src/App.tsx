@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "./components/Form";
+import ExpenseForm from "./components/Button/ExpenseForm";
 
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
     return (
         <div>
-            <Form/>
+            <ExpenseForm/>
         </div>
     );
 }
