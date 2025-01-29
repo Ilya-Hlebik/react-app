@@ -1,23 +1,19 @@
 import React, {useState} from "react";
-import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
-import ExpenseList, {Expense} from "./expense-tracker/components/ExpenseList";
-import ExpenseForm from "./expense-tracker/components/ExpenseForm";
+import ProductList from "./components/ProductList";
 
 
 function App() {
-    const [selectedCategory, setSelectedCategory] = useState("")
-    const [expenses, setExpenses] = useState<Expense[]>([])
 
-    const visibleExpenses = selectedCategory ? expenses.filter(el => el.category === selectedCategory) : expenses;
+    const [category, setCategory] = useState('');
+
     return (
         <div>
-            <div className={'mb-5'}>
-                <ExpenseForm onSubmit={expense => setExpenses([...expenses, {...expense, id: expenses.length + 1}])}/>
-            </div>
-            <div className={'mb-3'}>
-                <ExpenseFilter onSelectCategory={category => setSelectedCategory(category)}/>
-            </div>
-            <ExpenseList onDelete={id => setExpenses(expenses.filter(el => el.id !== id))} expenses={visibleExpenses}/>
+            <select className={'form-select'} onChange={(event => setCategory(event.target.value))}>
+                <option value={''}/>
+                <option value={'Clothing'}>Clothing</option>
+                <option value={'Household'}>Household</option>
+            </select>
+            <ProductList category={category}/>
         </div>
     );
 }
